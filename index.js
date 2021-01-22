@@ -14,7 +14,20 @@ class Index {
     }
 
     moverover(command) {
+        this.commandArray = command.split("")
+        this.commandLength = this.commandArray.length;
 
+        for (let i = 0; i < this.commandLength; i++) {
+            if (this.currentDirection === "EAST") {
+                if (this.commandArray[i] === "F") {
+                    this.currentXPos++
+                } else if (this.commandArray[i] === "B") {
+                    this.currentXPos--
+                }
+            }
+
+
+        }
     }
 
 
