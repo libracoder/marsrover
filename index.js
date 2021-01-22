@@ -13,8 +13,9 @@ class Index {
         this.currentDirection = direction;
     }
 
+    moverover(command) {
 
-
+    }
 
 
 
