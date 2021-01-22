@@ -28,5 +28,12 @@ describe("marsrover", function () {
         expect(rover.currentYPos).to.be.equal(0)
         expect(rover.currentDirection).to.be.equal("EAST")
     });
+    it("004 - tests for a FB ", function () {
+        rover.initializerover(0,0, "EAST")
+            rover.moverover("FB")
+        expect(rover.currentXPos).to.be.equal(0)
+        expect(rover.currentYPos).to.be.equal(0)
+        expect(rover.currentDirection).to.be.equal("EAST")
+    });
 
 });
