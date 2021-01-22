@@ -7,7 +7,11 @@ class Index {
     commandLength = 0;
     cardinalPoints = ["NORTH", "EAST", "SOUTH", "WEST"]
 
-
+    initializerover(x, y, direction) {
+        this.currentXPos = x;
+        this.currentYPos = y;
+        this.currentDirection = direction;
+    }
 
 
 
