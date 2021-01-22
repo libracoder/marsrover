@@ -21,5 +21,12 @@ describe("marsrover", function () {
         expect(rover.currentYPos).to.be.equal(0)
         expect(rover.currentDirection).to.be.equal("EAST")
     });
+    it("003 - tests for a backward in the EAST direction ", function () {
+        rover.initializerover(0,0, "EAST")
+            rover.moverover("B")
+        expect(rover.currentXPos).to.be.equal(-1)
+        expect(rover.currentYPos).to.be.equal(0)
+        expect(rover.currentDirection).to.be.equal("EAST")
+    });
 
 });
