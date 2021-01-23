@@ -1,4 +1,9 @@
 class Index {
+    constructor(cordinates,direction) {
+        this.currentXPos = cordinates[0];
+        this.currentYPos = cordinates[1];
+        this.currentDirection = direction;
+    }
     currentXPos = 0;
     currentYPos = 0;
     currentDirection
@@ -6,11 +11,6 @@ class Index {
     commandArray;
     commandLength = 0;
     cardinalPoints = ["NORTH", "EAST", "SOUTH", "WEST"]
-    initializerover(x, y, direction) {
-        this.currentXPos = x;
-        this.currentYPos = y;
-        this.currentDirection = direction;
-    }
     changeRoverDirection() {
         let indexOfCurrentDirection = this.cardinalPoints.indexOf(this.currentDirection);
         let newPos = ((indexOfCurrentDirection + 1) % this.cardinalPoints.length)
@@ -65,8 +65,6 @@ class Index {
         }
     }
 }
-
-
 module.exports = Index;
 
 
