@@ -2,10 +2,8 @@ class Index {
     currentXPos = 0;
     currentYPos = 0;
     currentDirection;
-    obstacleAhead = false;
-    obstacles = [[1, 4], [3, 5], [7, 4]]
+    obstacles = []
     commands;
-    commandLength = 0;
     cardinalPoints = ["NORTH", "EAST", "SOUTH", "WEST"]
 
     constructor(cordinates, direction) {
@@ -13,21 +11,24 @@ class Index {
         this.currentYPos = cordinates[1];
         this.currentDirection = direction;
     }
-
-    downloadObstacles(obstacles) {
-        this.obstacles = obstacles
+    setCordinates(newPosX, newPosY) {
+        this.currentXPos = newPosX
+        this.currentYPos = newPosY
     }
-
-    isObstacleAhead(cordinates) {
-        // console.log(cordinates)
-        for (let index = 0; index < this.obstacles.length; index++) {
-            // console.log(cordinates.toString(),this.obstacles[index].toString())
-            if (cordinates.toString() === this.obstacles[index].toString()) {
-                return true
+    moverover(command) {
+        this.commands = command.split("") //split commands into array
+        for (let i = 0; i < this.commands.length; i++) {
+            let currentCommand = this.commands[i]
+            if (currentCommand === "L" || currentCommand === "R") {
+                this.rotateRover(this.commands[i])
+            }
+            //checks if the next command is Forward or Backward
+            if (currentCommand === "B" || currentCommand === "F") {
+                this.moveBackwardOrForward(this.commands[i])
             }
         }
-        return false
     }
+
 
     changeRoverDirection() {
         let indexOfCurrentDirection = this.cardinalPoints.indexOf(this.currentDirection);
@@ -35,8 +36,8 @@ class Index {
         this.currentDirection = this.cardinalPoints[newPos]
     }
 
-    //This handles left and right turns of the rover
-    rotate(command) {
+    //This rotates the rover in the left or right direction
+    rotateRover(command) {
         switch (command) {
             case "L":
                 // it took me almost a day to comeup with this bit
@@ -58,13 +59,13 @@ class Index {
         let posY = 0;
         let newPosX;
         let newPosY;
-        if (this.currentDirection === 'NORTH') {
+        if (_direction === 'NORTH') {
             posY = 1;
-        } else if (this.currentDirection === 'EAST') {
+        } else if (_direction === 'EAST') {
             posX += 1;
-        } else if (this.currentDirection === 'SOUTH') {
+        } else if (_direction === 'SOUTH') {
             posY = -1;
-        } else if (this.currentDirection === 'WEST') {
+        } else if (_direction === 'WEST') {
             posX = -1;
         }
         // This was according to JJ's recommendation to use product
@@ -74,30 +75,31 @@ class Index {
         }
         newPosX = this.currentXPos + posX
         newPosY = this.currentYPos + posY
+
+        /*
+           checks if the new cordinate is an obstacle.
+           if it is, it dosen't move the rover to the new cordinates
+         */
         if (!this.isObstacleAhead([newPosX, newPosY])) {
             this.setCordinates(newPosX, newPosY)
         }
 
     }
 
-    setCordinates(newPosX, newPosY) {
-        this.currentXPos = newPosX
-        this.currentYPos = newPosY
+
+
+
+    setObstacles(obstacles) {
+        this.obstacles = obstacles
     }
 
-    moverover(command) {
-        this.commands = command.split("")
-        this.commandLength = this.commands.length;
-        for (let i = 0; i < this.commandLength; i++) {
-            let currentCommand = this.commands[i]
-            if (currentCommand === "L" || currentCommand === "R") {
-                this.rotate(this.commands[i])
-            }
-            //checks if obstacle is ahead before it moves the rover
-            if (currentCommand === "B" || currentCommand === "F") {
-                this.moveBackwardOrForward(this.commands[i])
+    isObstacleAhead(cordinates) {
+        for (let index = 0; index < this.obstacles.length; index++) {
+            if (cordinates.toString() === this.obstacles[index].toString()) {
+                return true
             }
         }
+        return false
     }
 }
 

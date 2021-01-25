@@ -48,7 +48,7 @@ describe("marsrover", function () {
     });
     it("007 - tests for Obstacles ", function () {
         let  rover = new Rover([0,0], "EAST");
-        rover.downloadObstacles([[3,4], [3,5], [7,4]])
+        rover.setObstacles([[3,4], [3,5], [7,4]])
         rover.moverover("FFFLFFFFF")
         expect(rover.currentXPos).to.be.equal(3)
         expect(rover.currentYPos).to.be.equal(3)
