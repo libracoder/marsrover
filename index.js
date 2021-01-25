@@ -108,6 +108,7 @@ class Index {
            checks if the new cordinate is an obstacle.
            if it is, it dosen't move the rover to the new cordinates
          */
+        console.log(newPosX, newPosY)
         if (!this._isObstacleAhead([newPosX, newPosY])) {
             this._setCordinates(newPosX, newPosY)
         }
