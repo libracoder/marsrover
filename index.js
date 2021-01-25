@@ -6,9 +6,8 @@ class Index {
     commands;
     cardinalPoints = ["NORTH", "EAST", "SOUTH", "WEST"]
 
-    constructor(cordinates, direction) {
-        this.currentXPos = cordinates[0];
-        this.currentYPos = cordinates[1];
+    constructor(posX,posY, direction) {
+        this.setCordinates(posX,posY)
         this.currentDirection = direction;
     }
     setCordinates(newPosX, newPosY) {
@@ -52,9 +51,9 @@ class Index {
         }
     }
 
+    // This moves the rover forward or backward
     moveBackwardOrForward(command) {
         let _direction = this.currentDirection
-
         let posX = 0;
         let posY = 0;
         let newPosX;
@@ -85,14 +84,9 @@ class Index {
         }
 
     }
-
-
-
-
     setObstacles(obstacles) {
         this.obstacles = obstacles
     }
-
     isObstacleAhead(cordinates) {
         for (let index = 0; index < this.obstacles.length; index++) {
             if (cordinates.toString() === this.obstacles[index].toString()) {
