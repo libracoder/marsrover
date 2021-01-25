@@ -16,11 +16,11 @@ class Index {
         return this.currentDirection
     }
     _setCurrentDirection(direction){
-        this.currentDirection=direction
+        this.currentDirection=direction?direction:"NORTH"
     }
     _setCordinates(newPosX, newPosY) {
-        this.currentXPos = newPosX
-        this.currentYPos = newPosY
+        this.currentXPos = newPosX?newPosX:0
+        this.currentYPos = newPosY?newPosY:0
     }
     _setNewPosition(position){
         this.newPosition=position
