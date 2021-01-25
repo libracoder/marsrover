@@ -7,53 +7,63 @@ class Index {
     cardinalPoints = ["NORTH", "EAST", "SOUTH", "WEST"]
 
     constructor(posX,posY, direction) {
-        this.setCordinates(posX,posY)
-        this.currentDirection = direction;
+        this._setCordinates(posX,posY)
+        this._setCurrentDirection(direction);
     }
-    setCordinates(newPosX, newPosY) {
+    _getCurrentDirection(){
+        return this.currentDirection
+    }
+    _setCurrentDirection(direction){
+        this.currentDirection=direction
+    }
+    _setCordinates(newPosX, newPosY) {
         this.currentXPos = newPosX
         this.currentYPos = newPosY
     }
-    moverover(command) {
+    setObstacles(obstacles) {
+        this.obstacles = obstacles
+    }
+    moveRover(command) {
         this.commands = command.split("") //split commands into array
         for (let i = 0; i < this.commands.length; i++) {
             let currentCommand = this.commands[i]
             if (currentCommand === "L" || currentCommand === "R") {
-                this.rotateRover(this.commands[i])
+                this._rotateRover(this.commands[i])
             }
             //checks if the next command is Forward or Backward
             if (currentCommand === "B" || currentCommand === "F") {
-                this.moveBackwardOrForward(this.commands[i])
+                this._moveBackwardOrForward(this.commands[i])
             }
         }
+        console.log(`(${this.currentXPos}, ${this.currentYPos}) ${this._getCurrentDirection()}`)
     }
 
 
-    changeRoverDirection() {
-        let indexOfCurrentDirection = this.cardinalPoints.indexOf(this.currentDirection);
+    _changeRoverDirection() {
+        let indexOfCurrentDirection = this.cardinalPoints.indexOf(this._getCurrentDirection());
         let newPos = ((indexOfCurrentDirection + 1) % this.cardinalPoints.length)
-        this.currentDirection = this.cardinalPoints[newPos]
+        this._setCurrentDirection(this.cardinalPoints[newPos])
     }
 
     //This rotates the rover in the left or right direction
-    rotateRover(command) {
+    _rotateRover(command) {
         switch (command) {
             case "L":
                 // it took me almost a day to comeup with this bit
                 this.cardinalPoints.reverse()
-                this.changeRoverDirection()
+                this._changeRoverDirection()
                 this.cardinalPoints.reverse()
                 break;
             case "R":
-                this.changeRoverDirection()
+                this._changeRoverDirection()
                 break;
             default:
         }
     }
 
     // This moves the rover forward or backward
-    moveBackwardOrForward(command) {
-        let _direction = this.currentDirection
+    _moveBackwardOrForward(command) {
+        let _direction = this._getCurrentDirection()
         let posX = 0;
         let posY = 0;
         let newPosX;
@@ -79,15 +89,13 @@ class Index {
            checks if the new cordinate is an obstacle.
            if it is, it dosen't move the rover to the new cordinates
          */
-        if (!this.isObstacleAhead([newPosX, newPosY])) {
-            this.setCordinates(newPosX, newPosY)
+        if (!this._isObstacleAhead([newPosX, newPosY])) {
+            this._setCordinates(newPosX, newPosY)
         }
 
     }
-    setObstacles(obstacles) {
-        this.obstacles = obstacles
-    }
-    isObstacleAhead(cordinates) {
+
+    _isObstacleAhead(cordinates) {
         for (let index = 0; index < this.obstacles.length; index++) {
             if (cordinates.toString() === this.obstacles[index].toString()) {
                 return true
