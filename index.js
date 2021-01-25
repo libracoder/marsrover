@@ -3,6 +3,8 @@ class Index {
     currentYPos = 0;
     currentDirection;
     obstacles = []
+    obstacleInTheWay=false;
+    newPosition = ""
     commands;
     cardinalPoints = ["NORTH", "EAST", "SOUTH", "WEST"]
 
@@ -20,6 +22,12 @@ class Index {
         this.currentXPos = newPosX
         this.currentYPos = newPosY
     }
+    _setNewPosition(position){
+        this.newPosition=position
+    }
+    _getNewPosition(){
+        return this.newPosition;
+    }
     setObstacles(obstacles) {
         this.obstacles = obstacles
     }
@@ -35,7 +43,18 @@ class Index {
                 this._moveBackwardOrForward(this.commands[i])
             }
         }
-        console.log(`(${this.currentXPos}, ${this.currentYPos}) ${this._getCurrentDirection()}`)
+
+
+        if (this.obstacleInTheWay) {
+            //This prints the new-cordinates after the rover movement
+            this._setNewPosition(`(${this.currentXPos}, ${this.currentYPos}) ${this._getCurrentDirection()} STOPPED`)
+            console.log(this._getNewPosition())
+        }
+        else {
+            //This prints the new-cordinates after the rover movement
+            this._setNewPosition(`(${this.currentXPos}, ${this.currentYPos}, ${this._getCurrentDirection()})`)
+            console.log(this._getNewPosition());
+        }
     }
 
 
@@ -98,6 +117,7 @@ class Index {
     _isObstacleAhead(cordinates) {
         for (let index = 0; index < this.obstacles.length; index++) {
             if (cordinates.toString() === this.obstacles[index].toString()) {
+                this.obstacleInTheWay=true
                 return true
             }
         }
