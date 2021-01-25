@@ -39,11 +39,19 @@ describe("marsrover", function () {
         expect(rover.currentYPos).to.be.equal(0)
         expect(rover.currentDirection).to.be.equal("NORTH")
     });
-    it("005 - tests for a FBBBBBRRRLLLLLFRF ", function () {
+    it("006 - tests for a FBBBBBRRRLLLLLFRF ", function () {
         let  rover = new Rover([0,0], "EAST");
         rover.moverover("FBBBBBRRRLLLLLFRF")
         expect(rover.currentXPos).to.be.equal(-5)
         expect(rover.currentYPos).to.be.equal(1)
+        expect(rover.currentDirection).to.be.equal("NORTH")
+    });
+    it("007 - tests for Obstacles ", function () {
+        let  rover = new Rover([0,0], "EAST");
+        rover.downloadObstacles([[3,4], [3,5], [7,4]])
+        rover.moverover("FFFLFFFFF")
+        expect(rover.currentXPos).to.be.equal(3)
+        expect(rover.currentYPos).to.be.equal(3)
         expect(rover.currentDirection).to.be.equal("NORTH")
     });
 
